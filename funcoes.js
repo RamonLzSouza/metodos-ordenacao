@@ -6,10 +6,12 @@ function executa($tamanhoVetor) {
     const vetorBubblesort = vetor.slice();
     const vetorSelecaoDireta = vetor.slice();
     const vetorInsercaoDireta = vetor.slice();
+    const vetorQuickSort = vetor.slice();
 
     var inputBubble = document.getElementById("Bubblesort");
     var inputSD = document.getElementById("Selecao_Direta");
     var inputID = document.getElementById("Insercao_Direta");
+    var inputQS = document.getElementById("Quick_Sort");
     
     console.log(inputBubble);
     console.log("bubblesort");
@@ -33,6 +35,14 @@ function executa($tamanhoVetor) {
     const fim3 = performance.now();
     console.log(fim3 - inicio3);
     inputID.value = (fim3 - inicio3)/1000 + " s"
+
+    console.log("QuickSort");
+    const inicio4 = performance.now();
+    QuickSort(vetorQuickSort);
+    const fim4 = performance.now();
+    console.log(fim4 - inicio4);
+    inputQS.value = (fim4 - inicio4)/1000 + " s"
+
 
     function Bubblesort(vetor) {
 
@@ -84,5 +94,33 @@ function executa($tamanhoVetor) {
             }
             vetor[k] = x;
         }
+    }
+
+    function QuickSort(array, left, right){
+        var i = left;
+        var j = right;
+        var tmp;
+        var pivotidx = (left + right) / 2;
+        var pivot = parseInt(array[pivotidx.toFixed()]); 
+        // PARTI��O
+        while (i <= j){
+            while (parseInt(array[i]) < pivot)
+                i++;
+            while (parseInt(array[j]) > pivot)
+                j--;
+            if (i <= j){
+                tmp = array[i];
+                array[i] = array[j];
+                array[j] = tmp;
+                i++;
+                j--;
+            }
+        }
+        // RECURSAO
+        if (left < j)
+            quicksort(array, left, j);
+        if (i < right)
+            quicksort(array, i, right);
+        return array;
     }
 }
