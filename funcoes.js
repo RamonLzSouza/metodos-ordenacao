@@ -7,19 +7,20 @@ function executa($tamanhoVetor) {
     const vetorSelecaoDireta = vetor.slice();
     const vetorInsercaoDireta = vetor.slice();
     const vetorQuickSort = vetor.slice();
+    const vetorShellSort = vetor.slice();
 
     var inputBubble = document.getElementById("Bubblesort");
     var inputSD = document.getElementById("Selecao_Direta");
     var inputID = document.getElementById("Insercao_Direta");
     var inputQS = document.getElementById("Quick_Sort");
+    var inputSS = document.getElementById("ShellSort");
     
-    console.log(inputBubble);
+    
     console.log("bubblesort");
     var inicio1 = performance.now();
     Bubblesort(vetorBubblesort);
     var fim1 = performance.now();
     console.log(fim1 - inicio1);
-
     inputBubble.value =(fim1 - inicio1)/1000 + " s";
 
     console.log("SelecaoDireta");
@@ -43,6 +44,13 @@ function executa($tamanhoVetor) {
     console.log(fim4 - inicio4);
     inputQS.value = (fim4 - inicio4)/1000 + " s"
 
+    console.log("ShellSort");
+    const inicio5 = performance.now();
+    ShellSort(vetorShellSort, $tamanhoVetor);
+    const fim5 = performance.now();
+    console.log(fim5 - inicio5);
+    inputSS.value = (fim5 - inicio5)/1000 + " s"
+    console.log(vetorShellSort);
 
     function Bubblesort(vetor) {
 
@@ -102,7 +110,7 @@ function executa($tamanhoVetor) {
         var tmp;
         var pivotidx = (left + right) / 2;
         var pivot = parseInt(array[pivotidx.toFixed()]); 
-        // PARTI��O
+        
         while (i <= j){
             while (parseInt(array[i]) < pivot)
                 i++;
@@ -122,5 +130,26 @@ function executa($tamanhoVetor) {
         if (i < right)
             quicksort(array, i, right);
         return array;
+    }
+
+    function ShellSort(vetor, tam){
+        var i, j, value;
+        var gap = 1;
+        while(gap < tam){
+            gap=3*gap+1;
+        }
+        while(gap > 1){
+            gap = parseInt(gap/3);
+            for(i = gap; i< tam; i++){
+                value= vetor[i];
+                j=i-gap;
+                while((j >=0) && (value <vetor[j])) {
+                    vetor[j+gap]=vetor[j];
+                    j=j-gap;
+                }
+                vetor[j+gap]=value;
+            }
+        }
+        console.log(vetor)
     }
 }
