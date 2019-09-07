@@ -1,7 +1,7 @@
 function executa($tamanhoVetor) {
     var vetor = [];
     for (i = 0; i < $tamanhoVetor; i++) {
-        vetor.push(Math.floor(Math.random() * 10000));
+        vetor.push(Math.floor(Math.random() * 100));
     }
     const vetorBubblesort = vetor.slice();
     const vetorSelecaoDireta = vetor.slice();
@@ -14,43 +14,44 @@ function executa($tamanhoVetor) {
     var inputID = document.getElementById("Insercao_Direta");
     var inputQS = document.getElementById("Quick_Sort");
     var inputSS = document.getElementById("ShellSort");
-    
-    
+
+
     console.log("bubblesort");
     var inicio1 = performance.now();
     Bubblesort(vetorBubblesort);
     var fim1 = performance.now();
     console.log(fim1 - inicio1);
-    inputBubble.value =(fim1 - inicio1)/1000 + " s";
+    inputBubble.value = (fim1 - inicio1) / 1000 + " s";
 
     console.log("SelecaoDireta");
     const inicio2 = performance.now();
     SelecaoDireta(vetorSelecaoDireta);
     const fim2 = performance.now();
     console.log(fim2 - inicio2);
-    inputSD.value = (fim2 - inicio2)/1000 + " s";
+    inputSD.value = (fim2 - inicio2) / 1000 + " s";
 
     console.log("InsercaoDireta");
     const inicio3 = performance.now();
     InsercaoDireta(vetorInsercaoDireta);
     const fim3 = performance.now();
     console.log(fim3 - inicio3);
-    inputID.value = (fim3 - inicio3)/1000 + " s"
+    inputID.value = (fim3 - inicio3) / 1000 + " s"
 
     console.log("QuickSort");
     const inicio4 = performance.now();
-    QuickSort(vetorQuickSort);
+    QuickSort(vetorQuickSort, 0, $tamanhoVetor - 1);
     const fim4 = performance.now();
     console.log(fim4 - inicio4);
-    inputQS.value = (fim4 - inicio4)/1000 + " s"
+    inputQS.value = (fim4 - inicio4) / 1000 + " s"
+    // console.log(vetorQuickSort);
 
     console.log("ShellSort");
     const inicio5 = performance.now();
     ShellSort(vetorShellSort, $tamanhoVetor);
     const fim5 = performance.now();
     console.log(fim5 - inicio5);
-    inputSS.value = (fim5 - inicio5)/1000 + " s"
-    console.log(vetorShellSort);
+    inputSS.value = (fim5 - inicio5) / 1000 + " s"
+    // console.log(vetorShellSort);
 
     function Bubblesort(vetor) {
 
@@ -104,19 +105,19 @@ function executa($tamanhoVetor) {
         }
     }
 
-    function QuickSort(array, left, right){
+    function QuickSort(array, left, right) {
         var i = left;
         var j = right;
         var tmp;
-        var pivotidx = (left + right) / 2;
-        var pivot = parseInt(array[pivotidx.toFixed()]); 
+        pivotidx = (left + right) / 2;
+        var pivot = parseInt(array[pivotidx.toFixed()]);
         
-        while (i <= j){
+        while (i <= j) {
             while (parseInt(array[i]) < pivot)
                 i++;
             while (parseInt(array[j]) > pivot)
                 j--;
-            if (i <= j){
+            if (i <= j) {
                 tmp = array[i];
                 array[i] = array[j];
                 array[j] = tmp;
@@ -124,32 +125,32 @@ function executa($tamanhoVetor) {
                 j--;
             }
         }
-        // RECURSAO
+        
         if (left < j)
-            quicksort(array, left, j);
+            QuickSort(array, left, j);
         if (i < right)
-            quicksort(array, i, right);
+            QuickSort(array, i, right);
         return array;
     }
 
-    function ShellSort(vetor, tam){
+    function ShellSort(vetor, tam) {
         var i, j, value;
         var gap = 1;
-        while(gap < tam){
-            gap=3*gap+1;
+        while (gap < tam) {
+            gap = 3 * gap + 1;
         }
-        while(gap > 1){
-            gap = parseInt(gap/3);
-            for(i = gap; i< tam; i++){
-                value= vetor[i];
-                j=i-gap;
-                while((j >=0) && (value <vetor[j])) {
-                    vetor[j+gap]=vetor[j];
-                    j=j-gap;
+        while (gap > 1) {
+            gap = parseInt(gap / 3);
+            for (i = gap; i < tam; i++) {
+                value = vetor[i];
+                j = i - gap;
+                while ((j >= 0) && (value < vetor[j])) {
+                    vetor[j + gap] = vetor[j];
+                    j = j - gap;
                 }
-                vetor[j+gap]=value;
+                vetor[j + gap] = value;
             }
         }
-        console.log(vetor)
+        // console.log(vetor)
     }
 }
