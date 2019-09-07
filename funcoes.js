@@ -1,7 +1,7 @@
 function executa($tamanhoVetor) {
     var vetor = [];
     for (i = 0; i < $tamanhoVetor; i++) {
-        vetor.push(Math.floor(Math.random() * 100));
+        vetor.push(Math.floor(Math.random() * 10000));
     }
     const vetorBubblesort = vetor.slice();
     const vetorSelecaoDireta = vetor.slice();
