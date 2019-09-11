@@ -8,12 +8,14 @@ function executa($tamanhoVetor) {
     const vetorInsercaoDireta = vetor.slice();
     const vetorQuickSort = vetor.slice();
     const vetorShellSort = vetor.slice();
+    const vetorHeapSort = vetor.slice();
 
     var inputBubble = document.getElementById("Bubblesort");
     var inputSD = document.getElementById("Selecao_Direta");
     var inputID = document.getElementById("Insercao_Direta");
     var inputQS = document.getElementById("Quick_Sort");
     var inputSS = document.getElementById("ShellSort");
+    var inputHS = document.getElementById("HeapSort");
 
 
     console.log("bubblesort");
@@ -52,6 +54,14 @@ function executa($tamanhoVetor) {
     console.log(fim5 - inicio5);
     inputSS.value = (fim5 - inicio5) / 1000 + " s"
     // console.log(vetorShellSort);
+
+    console.log("HeapSort");
+    const inicio6 = performance.now();
+    HeapSort(vetorHeapSort, $tamanhoVetor);
+    const fim6 = performance.now();
+    console.log(fim6 - inicio6);
+    inputHS.value = (fim6 - inicio6) / 1000 + " s"
+    //console.log(vetorHeapSort);
 
     function Bubblesort(vetor) {
 
@@ -111,7 +121,7 @@ function executa($tamanhoVetor) {
         var tmp;
         pivotidx = (left + right) / 2;
         var pivot = parseInt(array[pivotidx.toFixed()]);
-        
+
         while (i <= j) {
             while (parseInt(array[i]) < pivot)
                 i++;
@@ -125,7 +135,7 @@ function executa($tamanhoVetor) {
                 j--;
             }
         }
-        
+
         if (left < j)
             QuickSort(array, left, j);
         if (i < right)
@@ -151,6 +161,37 @@ function executa($tamanhoVetor) {
                 vetor[j + gap] = value;
             }
         }
-        // console.log(vetor)
     }
+
+    function HeapSort(vetor, tam) {
+        var i = parseInt(tam / 2), pai, filho, t;
+        for (; ;) {
+            if (i > 0) {
+                i--;
+                t = vetor[i];
+            }
+            else {
+                tam--;
+                if (tam == 0)
+                    return;
+                t = vetor[tam];
+                vetor[tam] = vetor[0];
+            }
+            pai = i;
+            filho = i * 2 + 1;
+            while (filho < tam) {
+                if ((filho + 1 < tam) && (vetor[filho + 1] > vetor[filho]))
+                    filho++;
+                if (vetor[filho] > t) {
+                    vetor[pai] = vetor[filho];
+                    pai = filho;
+                    filho = pai * 2 + 1;
+                }
+                else
+                    break;
+            }
+            vetor[pai] = t;
+        }
+    }
+
 }
